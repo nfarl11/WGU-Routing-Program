@@ -14,7 +14,7 @@ class Truck:
         self.total_mileage = 0.0
         self.current_time = departure_time
 
-    def add_package(self, package_id: int):
+    def add_package(self, package_id: str):
         # If the truck is not at capacity, a new package will be appended
         if len(self.packages) < self.capacity:
             self.packages.append(package_id)
@@ -26,7 +26,7 @@ class Truck:
         self.total_mileage += distance
         self.current_location = next_location
 
-        # Calculate the time spent driving and use timedelta to add to current time
+        # Calculate the time spent driving and use timedelta to add driving time to current time
         hours_traveled = distance / truck_speed
         time_delta = timedelta(hours=hours_traveled)
         self.current_time += time_delta

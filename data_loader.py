@@ -15,17 +15,17 @@ def load_packages(path="data/fresh_package_file.csv"):
                 cell.strip() == "" for cell in row
             ):  # Clean cells for empty white space and skip if empty
                 continue
-        pack = package.Package(
-            package_id=row[1],
-            package_address=row[2],
-            package_city=row[3],
-            package_state=row[4],
-            package_zip=row[5],
-            package_deadline=row[6],
-            package_weight=row[7],
-        )
+            pack = package.Package(
+            package_id=row[0],
+            package_address=row[1],
+            package_city=row[2],
+            package_state=row[3],
+            package_zip=row[4],
+            package_deadline=row[5],
+            package_weight=row[6],
+            )
 
-        table.insert(pack.package_id, pack)
+            table.insert(pack.package_id, pack)
 
     return table
 
