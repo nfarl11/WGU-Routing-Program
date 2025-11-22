@@ -18,7 +18,7 @@ class HashTable:
         curr_bucket.append((key, value))
 
     # Lookup function to return package object
-    def lookup(self, key: int):
+    def lookup(self, key):
         hash_bucket = self.hash(key)
         curr_bucket = self.hash_table[hash_bucket]
 

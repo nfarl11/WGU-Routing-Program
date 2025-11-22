@@ -5,7 +5,5 @@ def build_address_dict(locations):
     return mapping
 
 
-def retrieve_distance(location1, location2, matrix, mapping):
-    i = mapping[location1]
-    j = mapping[location2]
+def retrieve_distance(i, j, matrix, mapping=None):
     return matrix[i][j]

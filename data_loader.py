@@ -3,7 +3,7 @@ import hash_table
 import package
 
 
-# Method for extracting package data from package csv
+# Method for extracting package data from package csv, create hash table and insert
 def load_packages(path="data/fresh_package_file.csv"):
     table = hash_table.HashTable()
 
@@ -16,13 +16,13 @@ def load_packages(path="data/fresh_package_file.csv"):
             ):  # Clean cells for empty white space and skip if empty
                 continue
             pack = package.Package(
-            package_id=row[0],
-            package_address=row[1],
-            package_city=row[2],
-            package_state=row[3],
-            package_zip=row[4],
-            package_deadline=row[5],
-            package_weight=row[6],
+                package_id=row[0],
+                package_address=row[1],
+                package_city=row[2],
+                package_state=row[3],
+                package_zip=row[4],
+                package_deadline=row[5],
+                package_weight=row[6],
             )
 
             table.insert(pack.package_id, pack)
@@ -48,3 +48,4 @@ def load_distances(path="data/fresh_distance_table.csv"):
             ]  # Convert ALL columns to float (no slicing)
             matrix.append(float_row)
     return locations, matrix
+
