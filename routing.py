@@ -79,7 +79,7 @@ def deliver_package(truck, package_hash_table, index_map, address_to_location_di
         if pkg_location_index == truck.current_location:
             truck.package_deliver(pkg)
 
-'''
+
 def start_truck_route(truck, package_hash_table, index_map, matrix):
     for package_id in truck.packages:
         # When truck leaves hub, each package on truck gets marked En route with timestamp
@@ -99,10 +99,9 @@ def start_truck_route(truck, package_hash_table, index_map, matrix):
 
         # Calculate the nearest location, drive truck to this location and deliver package
         closest_location, min_distance, closest_location = get_nearest_neighbor(
-            truck, package_hash_table, index_map, matrix, address_to_location_dict=
+            truck, package_hash_table, index_map, matrix, address_to_location_dict
         )
         truck.drive_to(closest_location, min_distance)
         deliver_package(truck, package_hash_table, index_map)
 
     return truck.total_mileage
-'''
