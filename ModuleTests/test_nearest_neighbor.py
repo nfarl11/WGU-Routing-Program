@@ -8,6 +8,7 @@ BASE = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PACKAGE_PATH = os.path.join(BASE, "data", "fresh_package_file.csv")
 DISTANCE_PATH = os.path.join(BASE, "data", "fresh_distance_table.csv")
 
+
 def test_nn_for_one_truck():
     packages = load_packages(PACKAGE_PATH)
     locations, matrix = load_distances(DISTANCE_PATH)
@@ -27,6 +28,7 @@ def test_nn_for_one_truck():
     assert dist > 0, "Distance seems wrong"
 
     print("Nearest Neighbor: OK")
+
 
 if __name__ == "__main__":
     test_nn_for_one_truck()

@@ -48,4 +48,3 @@ def load_distances(path="data/fresh_distance_table.csv"):
             ]  # Convert ALL columns to float (no slicing)
             matrix.append(float_row)
     return locations, matrix
-

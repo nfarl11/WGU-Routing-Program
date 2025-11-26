@@ -4,6 +4,7 @@ from data_loader import load_distances
 BASE = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PACKAGE_PATH = os.path.join(BASE, "data", "fresh_distance_table.csv")
 
+
 def test_load_distances():
     locations, matrix = load_distances(PACKAGE_PATH)
 
@@ -16,6 +17,7 @@ def test_load_distances():
     assert matrix[5][7] == matrix[7][5]
 
     print("Distance matrix: OK")
+
 
 if __name__ == "__main__":
     test_load_distances()

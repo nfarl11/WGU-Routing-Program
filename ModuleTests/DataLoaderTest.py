@@ -1,5 +1,6 @@
 from data_loader import load_packages
 
+
 def test_load_packages():
     table = load_packages("../data/fresh_package_file.csv")
 
@@ -12,6 +13,7 @@ def test_load_packages():
     assert p1.package_address == "195 W Oakland Ave"
 
     print("Package loader: OK")
+
 
 if __name__ == "__main__":
     test_load_packages()

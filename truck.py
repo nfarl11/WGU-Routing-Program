@@ -37,7 +37,7 @@ class Truck:
 
     def package_deliver(self, pack_obj):
         pack_obj.set_status("Delivered", self.current_time)
-        if pack_obj in self.packages:
+        if pack_obj.package_id in self.packages:
             self.packages.remove(pack_obj.package_id)
 
     def __str__(self):

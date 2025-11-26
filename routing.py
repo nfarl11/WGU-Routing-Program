@@ -1,8 +1,9 @@
 from distance_matrix import retrieve_distance
-from address_to_location import address_to_location_dict
 
 
-def get_nearest_neighbor(truck, package_hash_table, index_map, matrix, address_to_location):
+def get_nearest_neighbor(
+    truck, package_hash_table, index_map, matrix, address_to_location_dict
+):
     # In order to account for packages with deadline we will route those with priority
     has_deadline = []
     eod_deadline = []
@@ -58,8 +59,8 @@ def get_nearest_neighbor(truck, package_hash_table, index_map, matrix, address_t
     if not has_deadline:
         return eod_closest_loc, eod_closest_dist, eod_closest_package_id
 
-    # If the EOD package is closer than deadline package, choose EOD package
-    if eod_closest_dist < deadline_closest_dist:
+    # If the EOD package less than half the deadline distance, choose EOD package
+    if eod_closest_dist < 0.5 * deadline_closest_dist:
         return eod_closest_loc, eod_closest_dist, eod_closest_package_id
 
     # Else, go to deadline package
@@ -68,10 +69,10 @@ def get_nearest_neighbor(truck, package_hash_table, index_map, matrix, address_t
 
 def deliver_package(truck, package_hash_table, index_map, address_to_location_dict):
     for package_id in truck.packages:
-        pkg = package_hash_table.lookup(package_id)
+        pkg = package_hash_table.lookup(str(package_id))
 
         # Since our distance matrix header is location names, not addresses, we convert so we can access the matrix correctly.
-        adr = pkg.address
+        adr = pkg.package_address
         location_name = address_to_location_dict[adr]
         pkg_location_index = index_map[location_name]
 
@@ -80,28 +81,33 @@ def deliver_package(truck, package_hash_table, index_map, address_to_location_di
             truck.package_deliver(pkg)
 
 
-def start_truck_route(truck, package_hash_table, index_map, matrix):
+def start_truck_route(
+    truck, package_hash_table, index_map, matrix, address_to_location_dict
+):
+
     for package_id in truck.packages:
         # When truck leaves hub, each package on truck gets marked En route with timestamp
-        pkg = package_hash_table.lookup(package_id)
+        pkg = package_hash_table.lookup(str(package_id))
         pkg.set_status("En route", truck.departure_time)
 
     while True:
         # Loop through package objects in truck, see if all are delivered
-        delivered = [
+        undelivered = [
             pck
             for pck in truck.packages
-            if package_hash_table.lookup(pck).status == "Delivered"
+            if package_hash_table.lookup(str(pck)).delivery_status != "Delivered"
         ]
 
-        if delivered:
+        # Stop loop when all packages are delivered
+        if not undelivered:
             break
 
         # Calculate the nearest location, drive truck to this location and deliver package
-        closest_location, min_distance, closest_location = get_nearest_neighbor(
+        closest_location, min_distance, closest_package_id = get_nearest_neighbor(
             truck, package_hash_table, index_map, matrix, address_to_location_dict
         )
         truck.drive_to(closest_location, min_distance)
-        deliver_package(truck, package_hash_table, index_map)
+        pkg = package_hash_table.lookup(str(closest_package_id))
+        truck.package_deliver(pkg)
 
     return truck.total_mileage

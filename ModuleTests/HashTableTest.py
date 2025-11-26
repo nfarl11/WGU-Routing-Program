@@ -1,5 +1,6 @@
 from hash_table import HashTable
 
+
 def test_insert_and_lookup():
     ht = HashTable(size=10)
 
@@ -11,6 +12,7 @@ def test_insert_and_lookup():
     assert ht.lookup("999") is None
 
     print("Hash table insert/lookup: OK")
+
 
 if __name__ == "__main__":
     test_insert_and_lookup()
