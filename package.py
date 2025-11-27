@@ -19,6 +19,8 @@ class Package:
         self.package_city = package_city
         self.package_weight = package_weight
         self.package_state = package_state
+        self.time_of_departure = None
+        self.truck_number = None
 
     def set_status(self, delivery_status, timestamp=None):
         self.delivery_status = delivery_status

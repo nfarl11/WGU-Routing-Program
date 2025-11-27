@@ -21,10 +21,6 @@ class Truck:
         else:
             raise exception("Truck is at capacity")
 
-    def remove_package(self, package_id):
-        if package_id in self.packages:
-            self.packages.remove(package_id)
-
     def drive_to(self, next_location, distance):
         # Changes the location of the truck and updates mileage
         self.total_mileage += distance
@@ -39,6 +35,14 @@ class Truck:
         pack_obj.set_status("Delivered", self.current_time)
         if pack_obj.package_id in self.packages:
             self.packages.remove(pack_obj.package_id)
+
+    def return_to_hub(self, dist_matrix, index_map):
+        hub_index = 0
+        if self.current_location == hub_index:
+            return
+
+        distance = dist_matrix[self.current_location][hub_index]
+        self.drive_to(hub_index, distance)
 
     def __str__(self):
         return (

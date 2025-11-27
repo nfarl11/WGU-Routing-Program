@@ -26,18 +26,31 @@ def test_start_routing():
 
     # Assign packages (same as main)
     t1.packages = [
-        1, 2, 4, 13, 14, 15, 16, 19, 20, 21, 27, 33, 34, 35, 39, 40, ]  # 16
-    t2.packages = [
-        3, 5, 6, 7, 10, 18, 22, 23, 24, 29, 30, 31, 36, 37, 38]  # 16
-    t3.packages = [
-        8, 9, 11, 12, 17, 21, 25, 26, 28, 32]  # 9
+        1,
+        2,
+        4,
+        13,
+        14,
+        15,
+        16,
+        19,
+        20,
+        27,
+        33,
+        34,
+        35,
+        39,
+        40,
+    ]  # 16
+    t2.packages = [3, 5, 6, 7, 10, 18, 22, 23, 24, 29, 30, 31, 36, 37, 38]  # 16
+    t3.packages = [8, 9, 11, 12, 17, 21, 25, 26, 28, 32]  # 9
 
     trucks = [t1, t2, t3]
 
     for truck in trucks:
 
         print("Running full routing test...")
-        total_miles = start_truck_route(
+        total_miles, current_time = start_truck_route(
             truck,
             package_table,
             matrix_index,
@@ -45,7 +58,7 @@ def test_start_routing():
             address_to_location_dict,
         )
 
-        print("Total mileage:", total_miles)
+        print(truck)
 
         assert total_miles > 0, "Routing failed—total mileage never increased"
 
