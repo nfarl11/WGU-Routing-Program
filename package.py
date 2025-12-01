@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class Package:
     def __init__(
         self,
@@ -8,6 +11,7 @@ class Package:
         package_zip,
         package_deadline,
         package_weight,
+        package_notes,
         delivery_status="At hub",
     ):
         self.package_id = package_id
@@ -21,6 +25,14 @@ class Package:
         self.package_state = package_state
         self.time_of_departure = None
         self.truck_number = None
+        self.time_of_arrival = None
+        self.package_notes = package_notes.strip()
+
+        # Created new logic to collect the package notes field and adjust time of arrival based on this
+        if "Delayed" in self.package_notes:
+            self.time_of_arrival = datetime.strptime("09:05 AM", "%I:%M %p")
+        else:
+            self.time_of_arrival = datetime.strptime("08:00 AM", "%I:%M %p")
 
     def set_status(self, delivery_status, timestamp=None):
         self.delivery_status = delivery_status

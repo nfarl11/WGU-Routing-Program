@@ -66,6 +66,7 @@ def get_nearest_neighbor(
     # Else, go to deadline package
     return deadline_closest_loc, deadline_closest_dist, deadline_closest_package_id
 
+
 def start_truck_route(
     truck, package_hash_table, index_map, matrix, address_to_location_dict
 ):

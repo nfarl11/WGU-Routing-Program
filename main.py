@@ -24,7 +24,9 @@ def print_status(package_table, requested_time):
     for p_id in range(1, 41):
         pkg = package_table.lookup(str(p_id))
 
-        if requested_time < pkg.time_of_departure:
+        if requested_time < pkg.time_of_arrival:
+            status = f"Not yet arrived (arrives at {pkg.time_of_arrival.strftime('%I:%M %p')})"
+        elif pkg.time_of_departure is None or requested_time < pkg.time_of_departure:
             status = "At hub"
         elif (
             pkg.time_of_delivery is not None and requested_time >= pkg.time_of_delivery
@@ -33,7 +35,9 @@ def print_status(package_table, requested_time):
         else:
             status = "En route"
 
-        print(f"Package {p_id}: {status} on {pkg.truck_number}")
+        print(
+            f"Package {p_id}: {status} on {pkg.truck_number}, Address: {pkg.package_address}, Deadline: {pkg.package_deadline} "
+        )
 
 
 def menu(package_table, total_miles):
@@ -86,7 +90,21 @@ if __name__ == "__main__":
     truck1 = Truck("Truck 1", start_time)
     truck2 = Truck("Truck 2", datetime.strptime("09:05 AM", "%I:%M %p"))
     truck3 = Truck("Truck 3", None)
-    truck1_packages = [1, 13, 14, 15, 16, 19, 20, 27, 33, 34, 35, 39, 40,]  # 13
+    truck1_packages = [
+        1,
+        13,
+        14,
+        15,
+        16,
+        19,
+        20,
+        27,
+        33,
+        34,
+        35,
+        39,
+        40,
+    ]  # 13
 
     truck2_packages = [3, 5, 6, 7, 10, 18, 22, 23, 24, 29, 30, 31, 36, 37, 38]  # 15
 

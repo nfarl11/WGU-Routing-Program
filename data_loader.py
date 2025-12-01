@@ -23,6 +23,7 @@ def load_packages(path="data/fresh_package_file.csv"):
                 package_zip=row[4],
                 package_deadline=row[5],
                 package_weight=row[6],
+                package_notes=row[7],
             )
 
             table.insert(pack.package_id, pack)
