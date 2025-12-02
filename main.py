@@ -24,6 +24,12 @@ def print_status(package_table, requested_time):
     for p_id in range(1, 41):
         pkg = package_table.lookup(str(p_id))
 
+        # Added logic to display the wrong address for package 9 before WGUPS gets the updated address
+        if "Wrong address" in pkg.package_notes and requested_time <= datetime.strptime("10:20 AM", "%I:%M %p"):
+            temp_address = "300 State St"
+        else:
+            temp_address = pkg.package_address
+
         if requested_time < pkg.time_of_arrival:
             status = f"Not yet arrived (arrives at {pkg.time_of_arrival.strftime('%I:%M %p')})"
         elif pkg.time_of_departure is None or requested_time < pkg.time_of_departure:
@@ -36,7 +42,8 @@ def print_status(package_table, requested_time):
             status = "En route"
 
         print(
-            f"Package {p_id}: {status} on {pkg.truck_number}, Address: {pkg.package_address}, Deadline: {pkg.package_deadline} "
+            f"Package {p_id}: {status} on {pkg.truck_number},"
+            f" Address: {temp_address}, Deadline: {pkg.package_deadline} "
         )
 
 
